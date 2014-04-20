@@ -1,5 +1,7 @@
 What will do is bootstrap the package.el file for Linux Mint Emacs version 23.24.<br>
 
+http://www.emacswiki.org/emacs/ELPA<br>
+
 https://github.com/technomancy/package.el<br>
 
 See the following for the package info<br>
