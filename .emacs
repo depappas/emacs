@@ -1,7 +1,45 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tell emacs where is your personal elisp lib dir
 ;; this is default dir for extra packages
+;; Help: since I use too many languages
+;; 1. Print a variable value: C-x v
+;; 2. Eval an s-expr: place the cursor after the closing paren and C-x C-e
+;; 
+;;  
+;; http://www.emacswiki.org/emacs/LoadPath
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(message "loading paths")
 (add-to-list 'load-path "~/.emacs.d/")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; To recursively add the sub-directories of the current 
+;; directory to the end of the ‘load-path’ do this:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(let ((default-directory "~/.emacs.d/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Run the emacs/emacs_setup.pl script to setup the thrid party git repos
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(let ((default-directory "~/repos/third_party_emacs_git_repos/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+;; (message "loading paths" load-path)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; load my custom keys
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'mykeys)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; load my package management setup for Linux Mint
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'package_setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc/Defaults
@@ -22,59 +60,7 @@
 ;;tags-query-replace
 ;;  Command: `Query-replace-regexp' FROM with TO through all files listed in tags table.
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Set up the global keys
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key [f1 ] 'indent-region           ) ;; search-forward-regexp
-(global-set-key [f2 ] 'undo                    )
-(global-set-key [f3 ] 'call-last-kbd-macro     )
-(global-set-key [f4 ] 'start-kbd-macro         )
-(global-set-key [f5 ] 'end-kbd-macro           )
-(global-set-key [f6 ] 'clear-rectangle         )
-(global-set-key [f7 ] 'delete-extract-rectangle)
-(global-set-key [f8 ] 'kill-rectangle          )
-(global-set-key [f9 ] 'string-rectangle        )
-(global-set-key [f10] 'query-replace-regexp    )
-(global-set-key [f11] 'yank-rectangle          )
-(global-set-key [f12] 'goto-line               )
-
-(global-set-key [insert] 'yank)
-
-(global-set-key [remove] 'kill-region)
-(global-set-key [select] 'set-mark-command)
-
-(global-set-key [kp-f1] 'beginning-of-buffer)
-(global-set-key [kp-f2] 'end-of-buffer)
-(global-set-key [kp-f3] 'delete-other-windows)
-(global-set-key [kp-f4] 'kill-line)
-
-;; 
-;;visit-tags-table
-;; tags-query-replace
-
-(global-set-key [kp-0] 'overwrite-mode)
-(global-set-key [kp-1] 'end-of-line)
-;;;(global-set-key [kp-2] 'scroll-up)
-(global-set-key [kp-2] 'backward-line)
-(global-set-key [kp-3] 'end-of-buffer)
-(global-set-key [kp-4] 'backward-word)
-(global-set-key [kp-5] 'save-buffer)
-(global-set-key [kp-6] 'forward-word)
-(global-set-key [kp-7] 'beginning-of-line)
-;;;(global-set-key [kp-8] 'scroll-down)
-(global-set-key [kp-8] 'forward-line)
-(global-set-key [kp-9] 'beginning-of-buffer)
-(global-set-key [kp-subtract] 'kill-word)
-(global-set-key [kp-separator] 'delete-char)
-(global-set-key [kp-enter] 'save-buffer)
-(global-set-key [kp-decimal] 'copy-region-as-kill)
-(global-set-key [kp-period] 'copy-region-as-kill)
-
-(global-set-key [?\C-h] 'delete-backward-char)
-(global-set-key [?\C-x ?h] 'help-command)
-(global-set-key [?\C-f] 'forward-word)
-(global-set-key [?\C-b] 'backward-word)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -86,130 +72,6 @@
 ;;
 ;; 
 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; first require all of the packages that package requires
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    
-
-(require 'cl)
-(add-to-list 'load-path "/home/depappas/.emacs.d/cl-lib/")
-(require 'cl-lib)
-(require 'popup)
-(require 'auto-complete-config)
-;;(require 'ert)
-(require 'python-environment)
-
-(require 'package)
-(package-initialize)
-
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
- 
-(package-initialize)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; http://www.emacswiki.org/emacs/ELPA
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
-
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; http://wikemacs.org/index.php/El-get
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 
-;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-;; 
-;; (unless (require 'el-get nil t)
-;;   (url-retrieve
-;;    "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-;;    (lambda (s)
-;;      (end-of-buffer)
-;;      (eval-print-last-sexp))))
-;; 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/
-;;  instantly deploy packages on any OS/machine 
-;;
-;;  find the packages that you want with 
-;;  M-x package-list-packages
-;;
-;;  Add them to the list below
-;;
-;;  The next time you run emacs they will be added automatically
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defvar prelude-packages
-  '(virtualenv ;; needed by python deps so put it first
-    virtualenvwrapper
-    epc
-    elpy
-    jedi 
-    jedi-direx
-    zenburn-theme
-    ido-vertical-mode
-    flycheck
-    python-environment
-    ac-dabbrev 
-    auto-complete
-    erlang
-    solarized-theme
-    pyflakes
-    pep8 
-    pyflakes
-    cedet
-    eieio
-    semantic
-    speedbar    
-    ecb
-    smartparens
-    python-info
-    python-mode
-    python-django
-    )
-  "A list of packages to ensure are installed at launch.")
-
-;;    flake
-;;    pymacs
-;;    pytest
-;;    pylint
-;;    py-import-check
-;;    python
-;;    
-
-;
-;    python-pylint
-;;    
-;;    
-;;    python-magic
-;;    pyvirtualenv
-;;    scala-mode
-
-(defun prelude-packages-installed-p ()
-  (loop for p in prelude-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-
-(unless (prelude-packages-installed-p)
-  ;; check for new packages (package versions)
-  (message "%s" "Emacs Prelude is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-  ;; install the missing packages
-  (dolist (p prelude-packages)
-    (when (not (package-installed-p p))
-	  (message "installing package %s\n" p)
-      (package-install p))))
-
-(provide 'prelude-packages)
-;;; prelude-packages.el ends here
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; https://github.com/kiwanami/emacs-epc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -256,12 +118,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Themes
 ;;
-;; Afterwards - business as usual, just load one of the theme variants with M-x load-theme.
-
+;; Afterwards - business as usual, just load one of the theme variants \
+;; with M-x load-theme.
 ;;
+;; https://github.com/bbatsov/zenburn-emacs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load-theme 'zenburn t)
+;; (load-theme 'zenburn t)
+(require 'zenburn)
+(zenburn)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ido vertical mode
