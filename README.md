@@ -1,4 +1,5 @@
 Create the directories for your emacs git clone repos and then clone/pull the git repos.<br>
+After the directories are created rerun the script to pull the latest updates from github.<br>
 <br>
 1. git clone this repo into the following directory<br>
 $HOME/repos/emacs
