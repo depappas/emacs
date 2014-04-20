@@ -1,3 +1,7 @@
+What will do is bootstrap the package.el file for Linux Mint Emacs version 23.24.<br>
+See the following for the package info<br>
+http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/<br>
+
 Create the directories for your emacs git clone repos and then clone/pull the git repos.<br>
 After the directories are created rerun the script to pull the latest updates from github.<br>
 <br>
