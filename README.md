@@ -1,4 +1,7 @@
 What will do is bootstrap the package.el file for Linux Mint Emacs version 23.24.<br>
+
+https://github.com/technomancy/package.el<br>
+
 See the following for the package info<br>
 http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/<br>
 
