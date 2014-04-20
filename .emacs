@@ -124,7 +124,8 @@
 ;; https://github.com/bbatsov/zenburn-emacs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (load-theme 'zenburn t)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'zenburn t)
 (require 'zenburn)
 (zenburn)
 
