@@ -7,12 +7,23 @@ $HOME/repos/emacs
 4. ./emacs_setup.pl<br>
 5. Add the loadpath statements to your.emacs<br>
 6. Add the require statements to your .emacs and include files<br>
-7. The directory structure will look like:<br>
+7. The resulting directory structure will look like:<br>
+<br>
+$HOME/.emacs<br>
+-your .emacs file with the require statements referencing the themes and packages<br>
 <br>
 $HOME/.emacs.d<br>
+$HOME/.emacs.d/mykeymappings.el<br>
+-any of your custom files such as key mappings<br>
+<br>
 $HOME/.emacs/themes<br>
-$HOME/repos/third_party_emacs_git_repos<br>
-$HOME/<br>
+$HOME/.emacs/themes<br>/<git_repo_pkg_name>/*el files<br>
+$HOME/.emacs/themes/zenburn-emacs<br>
+-your theme files such as $HOME/repos/third_party_emacs_git_repos<br>
+<br>
+$HOME/repos/third_party_emacs_git_repos/<git_repo_pkg_name>/*el files<br>
+$HOME/repos/third_party_emacs_git_repos/cl-lib<br>
+
      
 
 
