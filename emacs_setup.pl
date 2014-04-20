@@ -3,12 +3,18 @@ use strict;
 use warnings;
 use Cwd;
 
-my $repo_root_dir = "$ENV{HOME}/repos/third_party_emacs_git_repos";
+my $repo_root_dir = "$ENV{HOME}/repos";
+&mkdir("$repo_root_dir");
+
+my $repo_third_party_dir = "$repo_root_dir/third_party_emacs_git_repos";
+&mkdir("$repo_third_party_dir");
+
 my %git_repos;
 &initGitRepoHash();
-&makeGitClones($repo_root_dir, %git_repos);
+&makeGitClones($repo_third_party_dir, %git_repos);
 
 my $emacs_d_dir = "$ENV{HOME}/.emacs.d/themes";
+
 my %git_theme_repos;
 &initThemesGitRepoHash();
 &makeGitClones($emacs_d_dir, %git_theme_repos);
@@ -25,8 +31,6 @@ sub initThemesGitRepoHash() {
     $git_theme_repos{"zenburn-emacs"} = "https://github.com/bbatsov/zenburn-emacs.git"; 
 #    $git_repos{""} = ""; 
 }
-
-
 
 sub makeGitClones() {
     my ($rootDirectoryPath, %repos) = @_;
